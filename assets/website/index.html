@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>StreamNest – demo</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#0b0b10;color:#f4f4f6;font:15px/1.5 "Segoe UI",system-ui,sans-serif}
+nav{display:flex;gap:14px;align-items:center;padding:14px 4%;background:linear-gradient(#000c,transparent);position:sticky;top:0;z-index:2}
+nav b{color:#e50914;font-size:22px;letter-spacing:1px}nav input{margin-left:auto;padding:7px 10px;border-radius:4px;border:1px solid #444;background:#15151c;color:#fff}
+.hero{padding:90px 4% 60px;background:radial-gradient(circle at 75% 30%,#7a0b12,#0b0b10 65%)}.hero h1{font-size:clamp(30px,6vw,56px);margin:0 0 8px;max-width:640px}.hero p{max-width:520px;color:#ccc}
+button{background:#e50914;color:#fff;border:0;border-radius:4px;padding:10px 18px;cursor:pointer;font:inherit}button.g{background:#444}button:hover{filter:brightness(1.15)}
+.cats{display:flex;gap:8px;padding:0 4%;flex-wrap:wrap}.cats button{background:#1b1b24}.cats button.on{background:#e50914}
+h2{padding:18px 4% 0;margin:0}.row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;padding:12px 4% 30px}
+.p{aspect-ratio:2/3;border-radius:6px;display:flex;align-items:flex-end;padding:10px;font-weight:700;transition:transform .2s;cursor:pointer}.p:hover{transform:scale(1.07);box-shadow:0 8px 24px #000}
+#msg{padding:0 4% 20px;color:#9fe0a6;min-height:24px}footer{padding:20px 4%;color:#888;font-size:12px}</style></head><body>
+<nav><b>STREAMNEST</b><span>Home</span><span>Trending</span><span>My list</span><input id="q" placeholder="Search titles" aria-label="Search"></nav>
+<section class="hero"><h1>Cloud Nights: stories streamed from your own server</h1><p>An original demo page served by NGINX on Amazon Linux EC2.</p><button id="pl">Play trailer</button> <button class="g" id="ad">Add to list</button></section>
+<h2>Browse</h2><div class="cats" id="cats"></div><p id="msg"></p><h2>Trending now</h2><div class="row" id="row"></div>
+<footer>Original demo by Cloud Messenger™. Not affiliated with or endorsed by any streaming service. Artwork is generated with CSS.</footer>
+<script>
+var T=[["Neon Harbor","Drama"],["Orbit Seven","Sci-Fi"],["The Quiet Server","Thriller"],["Monsoon Express","Comedy"],["Pixel Kingdom","Animation"],["Deep Packet","Thriller"],["Skyline Stories","Drama"],["Robo Chef","Comedy"],["Aurora Run","Sci-Fi"],["Paper Moons","Animation"],["Midnight Cache","Thriller"],["Lantern Road","Drama"]];
+var cat="All",cs=["All","Drama","Sci-Fi","Thriller","Comedy","Animation"],m=document.getElementById("msg");
+function draw(){var q=document.getElementById("q").value.toLowerCase(),r=document.getElementById("row");r.innerHTML="";
+T.forEach(function(t,i){if((cat=="All"||t[1]==cat)&&t[0].toLowerCase().indexOf(q)>-1){var d=document.createElement("div");d.className="p";d.style.background="linear-gradient(160deg,hsl("+(i*47)+",70%,38%),hsl("+(i*47+60)+",60%,12%))";d.textContent=t[0];d.onclick=function(){m.textContent="Selected: "+t[0]+" ("+t[1]+") – demo only";};r.appendChild(d);}});}
+cs.forEach(function(c){var b=document.createElement("button");b.textContent=c;if(c=="All")b.className="on";b.onclick=function(){cat=c;document.querySelectorAll("#cats button").forEach(function(x){x.className=x===b?"on":""});draw();};document.getElementById("cats").appendChild(b);});
+document.getElementById("q").oninput=draw;document.getElementById("pl").onclick=function(){m.textContent="Playing trailer (demo)"};document.getElementById("ad").onclick=function(){m.textContent="Added to My list (demo)"};draw();
+</script></body></html>
